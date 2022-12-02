@@ -9,3 +9,24 @@ export default {
 export const Default = {
   args: { children: "Texto do botão", size: "default" },
 } as StoryObj<ButtonProps>;
+
+export const Disabled = {
+  args: { children: "Texto do botão", size: "default", disabled: true },
+} as StoryObj<ButtonProps>;
+
+export const Loading = {
+  args: {
+    children: "Texto do botão",
+    size: "default",
+    loading: true,
+    loadingText: "Carregando...",
+  },
+} as StoryObj<ButtonProps>;
+
+export const Outlined = {
+  args: {
+    children: "Texto do botão",
+    size: "default",
+    variant: "outlined",
+  },
+} as StoryObj<ButtonProps>;
