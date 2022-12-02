@@ -1,14 +1,11 @@
-import { Button } from ".";
-
-Button.defaultProps = {
-  children: "Botão",
-  variant: "contained",
-  color: "primary",
-};
+import { Button, ButtonProps } from ".";
+import { Meta, StoryObj } from "@storybook/react";
 
 export default {
-  title: "Button",
+  title: "Form/Button",
   component: Button,
-};
+} as Meta<ButtonProps>;
 
-export const Default = {};
+export const Default = {
+  args: { children: "Texto do botão", size: "default" },
+} as StoryObj<ButtonProps>;
