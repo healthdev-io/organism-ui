@@ -78,6 +78,26 @@ function RawComponent(props: ButtonProps) {
             },
           },
         },
+        filled: {
+          backgroundColor: "transparent",
+          "> span": {
+            color: theme.colors.primary600,
+          },
+          "&:is(:active, :focus)": {
+            backgroundColor: "transparent",
+            outline: "none",
+            "> span": {
+              color: theme.colors.primary600,
+            },
+          },
+          "&:hover": {
+            backgroundColor: theme.colors.primary600,
+            borderColor: theme.colors.primary600,
+            "> span": {
+              color: theme.colors.neutralWhite,
+            },
+          },
+        },
       },
       hoverType: {
         withShadow: {
