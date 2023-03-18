@@ -27,7 +27,9 @@ export const {
       neutralBlack: "#000000",
 
       text400: "#505050",
+      text500: "#333333",
 
+      close: '#c4c4c4',
       thin: "#F9F9F9",
       lightness: "#eeeeee",
 
