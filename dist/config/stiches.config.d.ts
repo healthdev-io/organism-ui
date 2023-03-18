@@ -14,6 +14,11 @@ export declare const styled: <Type extends import("@stitches/react/types/util").
         secondary600WithLoading: string;
         neutralWhite: string;
         neutralBlack: string;
+        text400: string;
+        text500: string;
+        close: string;
+        thin: string;
+        lightness: string;
         miscDisabled: string;
     };
 }, import("@stitches/react/types/config").DefaultThemeMap, {}>>(type: Type, ...composers: { [K in keyof Composers]: string extends Composers[K] ? Composers[K] : Composers[K] extends string | import("@stitches/react/types/util").Function | import("react").ComponentType<any> ? Composers[K] : import("@stitches/react/types/stitches").RemoveIndex<CSS> & {
@@ -40,6 +45,11 @@ export declare const styled: <Type extends import("@stitches/react/types/util").
         secondary600WithLoading: string;
         neutralWhite: string;
         neutralBlack: string;
+        text400: string;
+        text500: string;
+        close: string;
+        thin: string;
+        lightness: string;
         miscDisabled: string;
     };
 }, import("@stitches/react/types/config").DefaultThemeMap, {}>>, css: <Composers extends (string | import("@stitches/react/types/util").Function | import("react").JSXElementConstructor<any> | import("react").ExoticComponent<any> | {
@@ -57,6 +67,11 @@ export declare const styled: <Type extends import("@stitches/react/types/util").
         secondary600WithLoading: string;
         neutralWhite: string;
         neutralBlack: string;
+        text400: string;
+        text500: string;
+        close: string;
+        thin: string;
+        lightness: string;
         miscDisabled: string;
     };
 }, import("@stitches/react/types/config").DefaultThemeMap, {}>>(...composers: { [K in keyof Composers]: string extends Composers[K] ? Composers[K] : Composers[K] extends string | import("@stitches/react/types/util").Function | import("react").JSXElementConstructor<any> | import("react").ExoticComponent<any> ? Composers[K] : import("@stitches/react/types/stitches").RemoveIndex<CSS> & {
@@ -89,6 +104,11 @@ export declare const styled: <Type extends import("@stitches/react/types/util").
             secondary600WithLoading: string;
             neutralWhite: string;
             neutralBlack: string;
+            text400: string;
+            text500: string;
+            close: string;
+            thin: string;
+            lightness: string;
             miscDisabled: string;
         };
     }, import("@stitches/react/types/config").DefaultThemeMap, {}>;
@@ -105,6 +125,11 @@ export declare const styled: <Type extends import("@stitches/react/types/util").
         secondary600WithLoading: string;
         neutralWhite: string;
         neutralBlack: string;
+        text400: string;
+        text500: string;
+        close: string;
+        thin: string;
+        lightness: string;
         miscDisabled: string;
     };
 }, import("@stitches/react/types/config").DefaultThemeMap, {}>; })[]) => () => string, keyframes: (style: {
@@ -121,6 +146,11 @@ export declare const styled: <Type extends import("@stitches/react/types/util").
             secondary600WithLoading: string;
             neutralWhite: string;
             neutralBlack: string;
+            text400: string;
+            text500: string;
+            close: string;
+            thin: string;
+            lightness: string;
             miscDisabled: string;
         };
     }, import("@stitches/react/types/config").DefaultThemeMap, {}>;
@@ -143,6 +173,11 @@ export declare const styled: <Type extends import("@stitches/react/types/util").
         secondary600WithLoading: import("@stitches/react/types/theme").Token<"secondary600WithLoading", string, "colors", "">;
         neutralWhite: import("@stitches/react/types/theme").Token<"neutralWhite", string, "colors", "">;
         neutralBlack: import("@stitches/react/types/theme").Token<"neutralBlack", string, "colors", "">;
+        text400: import("@stitches/react/types/theme").Token<"text400", string, "colors", "">;
+        text500: import("@stitches/react/types/theme").Token<"text500", string, "colors", "">;
+        close: import("@stitches/react/types/theme").Token<"close", string, "colors", "">;
+        thin: import("@stitches/react/types/theme").Token<"thin", string, "colors", "">;
+        lightness: import("@stitches/react/types/theme").Token<"lightness", string, "colors", "">;
         miscDisabled: import("@stitches/react/types/theme").Token<"miscDisabled", string, "colors", "">;
     };
 }, createTheme: <Argument0 extends string | ({
@@ -158,6 +193,11 @@ export declare const styled: <Type extends import("@stitches/react/types/util").
         secondary600WithLoading?: string | number | boolean | undefined;
         neutralWhite?: string | number | boolean | undefined;
         neutralBlack?: string | number | boolean | undefined;
+        text400?: string | number | boolean | undefined;
+        text500?: string | number | boolean | undefined;
+        close?: string | number | boolean | undefined;
+        thin?: string | number | boolean | undefined;
+        lightness?: string | number | boolean | undefined;
         miscDisabled?: string | number | boolean | undefined;
     } | undefined;
 } & {
@@ -178,6 +218,11 @@ export declare const styled: <Type extends import("@stitches/react/types/util").
         secondary600WithLoading?: string | number | boolean | undefined;
         neutralWhite?: string | number | boolean | undefined;
         neutralBlack?: string | number | boolean | undefined;
+        text400?: string | number | boolean | undefined;
+        text500?: string | number | boolean | undefined;
+        close?: string | number | boolean | undefined;
+        thin?: string | number | boolean | undefined;
+        lightness?: string | number | boolean | undefined;
         miscDisabled?: string | number | boolean | undefined;
     } | undefined;
 } & {
@@ -204,6 +249,11 @@ export declare const styled: <Type extends import("@stitches/react/types/util").
             secondary600WithLoading: string;
             neutralWhite: string;
             neutralBlack: string;
+            text400: string;
+            text500: string;
+            close: string;
+            thin: string;
+            lightness: string;
             miscDisabled: string;
         };
     };

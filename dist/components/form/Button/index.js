@@ -81,6 +81,27 @@ function RawComponent(props) {
                         },
                     },
                 },
+                filled: {
+                    backgroundColor: theme.colors.thin,
+                    borderColor: theme.colors.thin,
+                    "> span": {
+                        color: theme.colors.text400,
+                    },
+                    "&:is(:active, :focus)": {
+                        backgroundColor: theme.colors.lightness,
+                        outline: "none",
+                        "> span": {
+                            color: theme.colors.text400,
+                        },
+                    },
+                    "&:hover": {
+                        backgroundColor: theme.colors.lightness,
+                        borderColor: theme.colors.lightness,
+                        "> span": {
+                            color: theme.colors.text400,
+                        },
+                    },
+                },
             },
             hoverType: {
                 withShadow: {

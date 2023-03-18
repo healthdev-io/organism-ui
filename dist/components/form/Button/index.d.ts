@@ -6,7 +6,7 @@ type ButtonRaw = JSX.IntrinsicElements["button"] & {
 };
 interface PropsLike {
     asChild?: boolean;
-    variant?: "contained" | "outlined";
+    variant?: "contained" | "outlined" | "filled";
     color?: "primary" | "secondary";
     size?: SizeOptions;
     hoverType?: "withShadow" | "natural";
