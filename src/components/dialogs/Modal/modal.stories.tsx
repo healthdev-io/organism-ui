@@ -7,6 +7,13 @@ export default {
   component: Modal,
 } as Meta;
 
+export const Default = ModalExample.bind({});
+Default.args = {
+  size: "normal",
+  closeOnEsc: true,
+  closeOnOverlayClick: true,
+} as ModalProps;
+
 export const FullScreen = ModalExample.bind({});
 FullScreen.args = {
   size: "fullScreen",
@@ -21,11 +28,4 @@ WithCustomOverlay.args = {
   closeOnOverlayClick: true,
   overlayBlur: '25px',
   overlayColor: 'rgba(255, 0 ,0, 0.5)'
-} as ModalProps;
-
-export const Default = ModalExample.bind({});
-Default.args = {
-  size: "normal",
-  closeOnEsc: true,
-  closeOnOverlayClick: true,
 } as ModalProps;
