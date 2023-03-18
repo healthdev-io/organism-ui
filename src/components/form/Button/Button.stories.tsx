@@ -30,3 +30,11 @@ export const Outlined = {
     variant: "outlined",
   },
 } as StoryObj<ButtonProps>;
+
+export const Filled = {
+  args: {
+    children: "Texto do botão",
+    size: "default",
+    variant: "filled",
+  },
+} as StoryObj<ButtonProps>;

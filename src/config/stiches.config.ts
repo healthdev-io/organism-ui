@@ -26,6 +26,11 @@ export const {
       neutralWhite: "#FFFFFF",
       neutralBlack: "#000000",
 
+      text400: "#505050",
+
+      thin: "#F9F9F9",
+      lightness: "#eeeeee",
+
       miscDisabled: "#CCCCCC",
     },
   },
