@@ -9,7 +9,7 @@ import { CSS } from "@stitches/react";
 type ButtonRaw = JSX.IntrinsicElements["button"] & { css?: CSS<{}> };
 interface PropsLike {
   asChild?: boolean;
-  variant?: "contained" | "outlined";
+  variant?: "contained" | "outlined" | "filled";
   color?: "primary" | "secondary";
   size?: SizeOptions;
   hoverType?: "withShadow" | "natural";
@@ -79,22 +79,23 @@ function RawComponent(props: ButtonProps) {
           },
         },
         filled: {
-          backgroundColor: "transparent",
+          backgroundColor: theme.colors.thin,
+          borderColor: theme.colors.thin,
           "> span": {
-            color: theme.colors.primary600,
+            color: theme.colors.text400,
           },
           "&:is(:active, :focus)": {
-            backgroundColor: "transparent",
+            backgroundColor: theme.colors.lightness,
             outline: "none",
             "> span": {
-              color: theme.colors.primary600,
+              color: theme.colors.text400,
             },
           },
           "&:hover": {
-            backgroundColor: theme.colors.primary600,
-            borderColor: theme.colors.primary600,
+            backgroundColor: theme.colors.lightness,
+            borderColor: theme.colors.lightness,
             "> span": {
-              color: theme.colors.neutralWhite,
+              color: theme.colors.text400,
             },
           },
         },
