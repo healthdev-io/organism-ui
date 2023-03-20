@@ -8,7 +8,18 @@ export interface ModalProps {
   closeOnOverlayClick?: boolean;
   children: React.ReactNode;
 }
-import React, { useEffect, useState } from "react";
+
+export interface ModalHandles {
+  open: () => void;
+  close: () => void;
+  isOpened: boolean;
+}
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { styled } from "@stitches/react";
 import { ModalSizeOptions } from "../../../core/types/modalSizeOptions";
@@ -21,7 +32,7 @@ const ModalBackground = styled("div", {
   width: "100%",
   height: "100%",
   backgroundColor: "$$overlayColor",
-  backdropFilter: 'blur($$overlayBlur)',
+  backdropFilter: "blur($$overlayBlur)",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -74,19 +85,39 @@ const ModalContent = styled("div", {
   },
 });
 
-export const Modal: React.FC<ModalProps> = ({
-  open,
-  onClose,
-  size,
-  closeOnEsc = true,
-  closeOnOverlayClick = true,
-  overlayBlur = "0",
-  overlayColor = "rgba(0, 0, 0, 0.7)",
-  children,
-}) => {
+const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
+  {
+    open,
+    onClose,
+    size,
+    closeOnEsc = true,
+    closeOnOverlayClick = true,
+    overlayBlur = "0",
+    overlayColor = "rgba(0, 0, 0, 0.7)",
+    children,
+  },
+  ref
+) => {
   const [portalRoot, setPortalRoot] = useState<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
   const [show, setShow] = useState(false);
+
+  const handleOpen = () => setVisible(true);
+  const handleClose = () => setVisible(false);
+
+
+  const handleBackgroundClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget && closeOnOverlayClick) {
+      onClose();
+    }
+  };
+
+  useImperativeHandle(ref, () => ({
+    open: handleOpen,
+    close: handleClose,
+    isOpened: visible,
+  }));
+
 
   useEffect(() => {
     const parent = document.createElement("div");
@@ -135,17 +166,15 @@ export const Modal: React.FC<ModalProps> = ({
     return null;
   }
 
-  const handleBackgroundClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget && closeOnOverlayClick) {
-      onClose();
-    }
-  };
-
   return createPortal(
-    <ModalBackground css={{
-      $$overlayColor: overlayColor,
-      $$overlayBlur: overlayBlur
-    }} show={show} onClick={handleBackgroundClick}>
+    <ModalBackground
+      css={{
+        $$overlayColor: overlayColor,
+        $$overlayBlur: overlayBlur,
+      }}
+      show={show}
+      onClick={handleBackgroundClick}
+    >
       <ModalContent size={size} show={show}>
         {children}
       </ModalContent>
@@ -153,3 +182,5 @@ export const Modal: React.FC<ModalProps> = ({
     portalRoot
   );
 };
+
+export const Modal = forwardRef(CompModal);
