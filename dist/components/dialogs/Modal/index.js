@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useState, } from "react";
 import { createPortal } from "react-dom";
 import { styled } from "@stitches/react";
 import { theme } from "../../../config/stiches.config";
@@ -9,7 +9,7 @@ var ModalBackground = styled("div", {
     width: "100%",
     height: "100%",
     backgroundColor: "$$overlayColor",
-    backdropFilter: 'blur($$overlayBlur)',
+    backdropFilter: "blur($$overlayBlur)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -59,11 +59,23 @@ var ModalContent = styled("div", {
         },
     },
 });
-export var Modal = function (_a) {
+var CompModal = function (_a, ref) {
     var open = _a.open, onClose = _a.onClose, size = _a.size, _b = _a.closeOnEsc, closeOnEsc = _b === void 0 ? true : _b, _c = _a.closeOnOverlayClick, closeOnOverlayClick = _c === void 0 ? true : _c, _d = _a.overlayBlur, overlayBlur = _d === void 0 ? "0" : _d, _e = _a.overlayColor, overlayColor = _e === void 0 ? "rgba(0, 0, 0, 0.7)" : _e, children = _a.children;
     var _f = useState(null), portalRoot = _f[0], setPortalRoot = _f[1];
     var _g = useState(false), visible = _g[0], setVisible = _g[1];
     var _h = useState(false), show = _h[0], setShow = _h[1];
+    var handleOpen = function () { return setVisible(true); };
+    var handleClose = function () { return setVisible(false); };
+    var handleBackgroundClick = function (e) {
+        if (e.target === e.currentTarget && closeOnOverlayClick) {
+            onClose();
+        }
+    };
+    useImperativeHandle(ref, function () { return ({
+        open: handleOpen,
+        close: handleClose,
+        isOpened: visible,
+    }); });
     useEffect(function () {
         var parent = document.createElement("div");
         document.body.appendChild(parent);
@@ -106,14 +118,10 @@ export var Modal = function (_a) {
     if (!portalRoot || !visible) {
         return null;
     }
-    var handleBackgroundClick = function (e) {
-        if (e.target === e.currentTarget && closeOnOverlayClick) {
-            onClose();
-        }
-    };
     return createPortal(React.createElement(ModalBackground, { css: {
             $$overlayColor: overlayColor,
-            $$overlayBlur: overlayBlur
+            $$overlayBlur: overlayBlur,
         }, show: show, onClick: handleBackgroundClick },
         React.createElement(ModalContent, { size: size, show: show }, children)), portalRoot);
 };
+export var Modal = forwardRef(CompModal);

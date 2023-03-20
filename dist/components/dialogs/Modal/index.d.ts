@@ -8,6 +8,11 @@ export interface ModalProps {
     closeOnOverlayClick?: boolean;
     children: React.ReactNode;
 }
+export interface ModalHandles {
+    open: () => void;
+    close: () => void;
+    isOpened: boolean;
+}
 import React from "react";
 import { ModalSizeOptions } from "../../../core/types/modalSizeOptions";
-export declare const Modal: React.FC<ModalProps>;
+export declare const Modal: React.ForwardRefExoticComponent<ModalProps & React.RefAttributes<ModalHandles>>;

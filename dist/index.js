@@ -6,3 +6,4 @@ export { ModalActions } from "./components/dialogs/ModalActions";
 export { HorizontalDivider } from "./components/dividers/HorizontalDivider";
 export { ButtonText } from "./components/typography/ButtonText";
 export { ModalTitle } from "./components/typography/ModalTitle";
+export { Avatar } from "./components/custom/Avatar";
