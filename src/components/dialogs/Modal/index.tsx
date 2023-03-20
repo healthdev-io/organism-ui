@@ -130,9 +130,8 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
   }, []);
 
   useEffect(() => {
-    if (open) {
+    if (visible) {
       document.body.style.overflow = "hidden";
-      setVisible(true);
       setTimeout(() => setShow(true), 10);
     } else {
       document.body.style.overflow = "";
@@ -140,7 +139,7 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
       const timer = setTimeout(() => setVisible(false), 100);
       return () => clearTimeout(timer);
     }
-  }, [open]);
+  }, [visible]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -161,6 +160,10 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [open, onClose, closeOnEsc]);
+
+  useEffect(() => {
+    setVisible(open);
+  }, [open])
 
   if (!portalRoot || !visible) {
     return null;

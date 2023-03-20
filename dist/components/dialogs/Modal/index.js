@@ -85,9 +85,8 @@ var CompModal = function (_a, ref) {
         };
     }, []);
     useEffect(function () {
-        if (open) {
+        if (visible) {
             document.body.style.overflow = "hidden";
-            setVisible(true);
             setTimeout(function () { return setShow(true); }, 10);
         }
         else {
@@ -96,7 +95,7 @@ var CompModal = function (_a, ref) {
             var timer_1 = setTimeout(function () { return setVisible(false); }, 100);
             return function () { return clearTimeout(timer_1); };
         }
-    }, [open]);
+    }, [visible]);
     useEffect(function () {
         var handleKeyDown = function (e) {
             if (e.key === "Escape") {
@@ -115,6 +114,9 @@ var CompModal = function (_a, ref) {
             document.removeEventListener("keydown", handleKeyDown);
         };
     }, [open, onClose, closeOnEsc]);
+    useEffect(function () {
+        setVisible(open);
+    }, [open]);
     if (!portalRoot || !visible) {
         return null;
     }
