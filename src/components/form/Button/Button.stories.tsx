@@ -4,6 +4,9 @@ import { Meta, StoryObj } from "@storybook/react";
 export default {
   title: "Form/Button",
   component: Button,
+  argTypes: {
+    css: { control: false },
+  },
 } as Meta<ButtonProps>;
 
 export const Default = {
