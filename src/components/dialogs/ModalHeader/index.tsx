@@ -9,8 +9,8 @@ import { ModalTitle } from "../../typography/ModalTitle";
 export interface ModalHeaderProps {
   title: string;
   onClose: () => void;
-  stopPropagation: boolean;
-  preventDefault: boolean;
+  stopPropagation?: boolean;
+  preventDefault?: boolean;
 }
 
 const StyledHeader = styled("header", {

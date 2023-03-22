@@ -112,6 +112,7 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
   const handleBackgroundClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget && closeOnOverlayClick) {
       onClose();
+      handleClose();
     }
   };
 
