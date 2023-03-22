@@ -8,10 +8,17 @@ import { ModalTitle } from "../../typography/ModalTitle";
 var StyledHeader = styled("header", {
     padding: "1rem 1.5rem",
     paddingBottom: 0,
-    backgroundColor: theme.colors.neutralWhite
+    backgroundColor: theme.colors.neutralWhite,
 });
 export var ModalHeader = function (props) {
-    return (React.createElement(StyledHeader, null,
+    return (React.createElement(StyledHeader, { onClick: function (event) {
+            if (props.preventDefault) {
+                event.preventDefault();
+            }
+            if (props.stopPropagation) {
+                event.stopPropagation();
+            }
+        } },
         React.createElement(Row, { align: "center", justify: "space-between", gap: "1rem" },
             React.createElement(ModalTitle, null, props.title),
             React.createElement(CloseButton, { onClick: props.onClose }, "x")),

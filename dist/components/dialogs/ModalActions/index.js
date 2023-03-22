@@ -4,7 +4,7 @@ import { theme } from "../../../config/stiches.config";
 import { Row } from "../../containers/Row";
 var StyledActionsWrapper = styled("div", {
     padding: "1rem 1.5rem",
-    backgroundColor: theme.colors.neutralWhite
+    backgroundColor: theme.colors.neutralWhite,
 });
 export var ModalActions = function (_a) {
     var children = _a.children;

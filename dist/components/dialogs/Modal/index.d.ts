@@ -1,5 +1,5 @@
 export interface ModalProps {
-    open: boolean;
+    open?: boolean;
     onClose: () => void;
     size?: ModalSizeOptions;
     overlayColor?: string;
@@ -7,6 +7,8 @@ export interface ModalProps {
     closeOnEsc?: boolean;
     closeOnOverlayClick?: boolean;
     children: React.ReactNode;
+    stopPropagation?: boolean;
+    preventDefault?: boolean;
 }
 export interface ModalHandles {
     open: () => void;

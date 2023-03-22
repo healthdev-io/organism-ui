@@ -60,10 +60,10 @@ var ModalContent = styled("div", {
     },
 });
 var CompModal = function (_a, ref) {
-    var open = _a.open, onClose = _a.onClose, size = _a.size, _b = _a.closeOnEsc, closeOnEsc = _b === void 0 ? true : _b, _c = _a.closeOnOverlayClick, closeOnOverlayClick = _c === void 0 ? true : _c, _d = _a.overlayBlur, overlayBlur = _d === void 0 ? "0" : _d, _e = _a.overlayColor, overlayColor = _e === void 0 ? "rgba(0, 0, 0, 0.7)" : _e, children = _a.children;
-    var _f = useState(null), portalRoot = _f[0], setPortalRoot = _f[1];
-    var _g = useState(false), visible = _g[0], setVisible = _g[1];
-    var _h = useState(false), show = _h[0], setShow = _h[1];
+    var open = _a.open, onClose = _a.onClose, size = _a.size, _b = _a.closeOnEsc, closeOnEsc = _b === void 0 ? true : _b, _c = _a.closeOnOverlayClick, closeOnOverlayClick = _c === void 0 ? true : _c, _d = _a.overlayBlur, overlayBlur = _d === void 0 ? "0" : _d, _e = _a.overlayColor, overlayColor = _e === void 0 ? "rgba(0, 0, 0, 0.7)" : _e, children = _a.children, _f = _a.stopPropagation, stopPropagation = _f === void 0 ? false : _f, _g = _a.preventDefault, preventDefault = _g === void 0 ? false : _g;
+    var _h = useState(null), portalRoot = _h[0], setPortalRoot = _h[1];
+    var _j = useState(false), visible = _j[0], setVisible = _j[1];
+    var _k = useState(false), show = _k[0], setShow = _k[1];
     var handleOpen = function () { return setVisible(true); };
     var handleClose = function () { return setVisible(false); };
     var handleBackgroundClick = function (e) {
@@ -99,12 +99,13 @@ var CompModal = function (_a, ref) {
     useEffect(function () {
         var handleKeyDown = function (e) {
             if (e.key === "Escape") {
-                if (closeOnEsc) {
+                if (visible) {
+                    handleClose();
                     onClose();
                 }
             }
         };
-        if (open) {
+        if (visible) {
             document.addEventListener("keydown", handleKeyDown);
         }
         else {
@@ -113,7 +114,7 @@ var CompModal = function (_a, ref) {
         return function () {
             document.removeEventListener("keydown", handleKeyDown);
         };
-    }, [open, onClose, closeOnEsc]);
+    }, [open, onClose, closeOnEsc, visible]);
     useEffect(function () {
         setVisible(open);
     }, [open]);
@@ -123,7 +124,15 @@ var CompModal = function (_a, ref) {
     return createPortal(React.createElement(ModalBackground, { css: {
             $$overlayColor: overlayColor,
             $$overlayBlur: overlayBlur,
-        }, show: show, onClick: handleBackgroundClick },
+        }, show: show, onClick: function (event) {
+            if (stopPropagation) {
+                event.stopPropagation();
+            }
+            if (preventDefault) {
+                event.preventDefault();
+            }
+            handleBackgroundClick(event);
+        } },
         React.createElement(ModalContent, { size: size, show: show }, children)), portalRoot);
 };
 export var Modal = forwardRef(CompModal);
