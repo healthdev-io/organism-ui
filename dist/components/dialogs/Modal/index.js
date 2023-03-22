@@ -69,6 +69,7 @@ var CompModal = function (_a, ref) {
     var handleBackgroundClick = function (e) {
         if (e.target === e.currentTarget && closeOnOverlayClick) {
             onClose();
+            handleClose();
         }
     };
     useImperativeHandle(ref, function () { return ({
