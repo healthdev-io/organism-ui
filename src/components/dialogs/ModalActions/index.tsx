@@ -5,7 +5,7 @@ import { Row } from "../../containers/Row";
 
 const StyledActionsWrapper = styled("div", {
   padding: "1rem 1.5rem",
-  backgroundColor: theme.colors.neutralWhite
+  backgroundColor: theme.colors.neutralWhite,
 });
 
 export const ModalActions: React.FC<PropsWithChildren> = ({ children }) => {

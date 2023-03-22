@@ -9,17 +9,28 @@ import { ModalTitle } from "../../typography/ModalTitle";
 export interface ModalHeaderProps {
   title: string;
   onClose: () => void;
+  stopPropagation: boolean;
+  preventDefault: boolean;
 }
 
 const StyledHeader = styled("header", {
   padding: "1rem 1.5rem",
   paddingBottom: 0,
-  backgroundColor: theme.colors.neutralWhite
+  backgroundColor: theme.colors.neutralWhite,
 });
 
 export const ModalHeader: React.FC<ModalHeaderProps> = (props) => {
   return (
-    <StyledHeader>
+    <StyledHeader
+      onClick={(event) => {
+        if (props.preventDefault) {
+          event.preventDefault();
+        }
+        if (props.stopPropagation) {
+          event.stopPropagation();
+        }
+      }}
+    >
       <Row align="center" justify="space-between" gap="1rem">
         <ModalTitle>{props.title}</ModalTitle>
         <CloseButton onClick={props.onClose}>x</CloseButton>

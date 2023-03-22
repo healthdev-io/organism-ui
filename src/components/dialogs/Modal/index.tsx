@@ -1,5 +1,5 @@
 export interface ModalProps {
-  open: boolean;
+  open?: boolean;
   onClose: () => void;
   size?: ModalSizeOptions;
   overlayColor?: string;
@@ -7,6 +7,8 @@ export interface ModalProps {
   closeOnEsc?: boolean;
   closeOnOverlayClick?: boolean;
   children: React.ReactNode;
+  stopPropagation?: boolean;
+  preventDefault?: boolean;
 }
 
 export interface ModalHandles {
@@ -95,6 +97,8 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
     overlayBlur = "0",
     overlayColor = "rgba(0, 0, 0, 0.7)",
     children,
+    stopPropagation = false,
+    preventDefault = false,
   },
   ref
 ) => {
@@ -104,7 +108,6 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
 
   const handleOpen = () => setVisible(true);
   const handleClose = () => setVisible(false);
-
 
   const handleBackgroundClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget && closeOnOverlayClick) {
@@ -117,7 +120,6 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
     close: handleClose,
     isOpened: visible,
   }));
-
 
   useEffect(() => {
     const parent = document.createElement("div");
@@ -144,13 +146,14 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (closeOnEsc) {
+        if (visible) {
+          handleClose();
           onClose();
         }
       }
     };
 
-    if (open) {
+    if (visible) {
       document.addEventListener("keydown", handleKeyDown);
     } else {
       document.removeEventListener("keydown", handleKeyDown);
@@ -159,11 +162,11 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [open, onClose, closeOnEsc]);
+  }, [open, onClose, closeOnEsc, visible]);
 
   useEffect(() => {
-    setVisible(open);
-  }, [open])
+    setVisible(open!);
+  }, [open]);
 
   if (!portalRoot || !visible) {
     return null;
@@ -176,7 +179,15 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
         $$overlayBlur: overlayBlur,
       }}
       show={show}
-      onClick={handleBackgroundClick}
+      onClick={(event) => {
+        if (stopPropagation) {
+          event.stopPropagation();
+        }
+        if (preventDefault) {
+          event.preventDefault();
+        }
+        handleBackgroundClick(event);
+      }}
     >
       <ModalContent size={size} show={show}>
         {children}
