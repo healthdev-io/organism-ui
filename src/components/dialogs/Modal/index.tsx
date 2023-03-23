@@ -26,6 +26,7 @@ import { createPortal } from "react-dom";
 import { styled } from "@stitches/react";
 import { ModalSizeOptions } from "../../../core/types/modalSizeOptions";
 import { theme } from "../../../config/stiches.config";
+import { createFocusTrap } from "focus-trap";
 
 const ModalBackground = styled("div", {
   position: "fixed",
@@ -153,8 +154,12 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
         }
       }
     };
+    const focusTrapInstance = createFocusTrap(
+      document.getElementById("modal-content")!
+    );
 
     if (visible) {
+      focusTrapInstance.activate();
       document.addEventListener("keydown", handleKeyDown);
     } else {
       document.removeEventListener("keydown", handleKeyDown);
@@ -162,6 +167,7 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      focusTrapInstance.deactivate();
     };
   }, [open, onClose, closeOnEsc, visible]);
 
@@ -190,7 +196,7 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
         handleBackgroundClick(event);
       }}
     >
-      <ModalContent size={size} show={show}>
+      <ModalContent size={size} show={show} id="modal-content">
         {children}
       </ModalContent>
     </ModalBackground>,
