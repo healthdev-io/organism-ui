@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useImperativeHandle, useState, } from "re
 import { createPortal } from "react-dom";
 import { styled } from "@stitches/react";
 import { theme } from "../../../config/stiches.config";
+import FocusTrap from "focus-trap-react";
 var ModalBackground = styled("div", {
     position: "fixed",
     top: 0,
@@ -65,10 +66,21 @@ var CompModal = function (_a, ref) {
     var _j = useState(false), visible = _j[0], setVisible = _j[1];
     var _k = useState(false), show = _k[0], setShow = _k[1];
     var handleOpen = function () { return setVisible(true); };
-    var handleClose = function () { return setVisible(false); };
+    var handleClose = function () {
+        onClose && onClose();
+        setShow(false);
+        setTimeout(function () {
+            setVisible(false);
+        }, 100);
+    };
     var handleBackgroundClick = function (e) {
+        if (stopPropagation) {
+            e.stopPropagation();
+        }
+        if (preventDefault) {
+            e.preventDefault();
+        }
         if (e.target === e.currentTarget && closeOnOverlayClick) {
-            onClose();
             handleClose();
         }
     };
@@ -88,21 +100,17 @@ var CompModal = function (_a, ref) {
     useEffect(function () {
         if (visible) {
             document.body.style.overflow = "hidden";
-            setTimeout(function () { return setShow(true); }, 10);
+            setShow(true);
         }
         else {
             document.body.style.overflow = "";
-            setShow(false);
-            var timer_1 = setTimeout(function () { return setVisible(false); }, 100);
-            return function () { return clearTimeout(timer_1); };
         }
     }, [visible]);
     useEffect(function () {
         var handleKeyDown = function (e) {
             if (e.key === "Escape") {
-                if (visible) {
+                if (visible && closeOnEsc) {
                     handleClose();
-                    onClose();
                 }
             }
         };
@@ -117,7 +125,12 @@ var CompModal = function (_a, ref) {
         };
     }, [open, onClose, closeOnEsc, visible]);
     useEffect(function () {
-        setVisible(open);
+        if (open) {
+            setVisible(true);
+        }
+        else {
+            handleClose();
+        }
     }, [open]);
     if (!portalRoot || !visible) {
         return null;
@@ -125,15 +138,8 @@ var CompModal = function (_a, ref) {
     return createPortal(React.createElement(ModalBackground, { css: {
             $$overlayColor: overlayColor,
             $$overlayBlur: overlayBlur,
-        }, show: show, onClick: function (event) {
-            if (stopPropagation) {
-                event.stopPropagation();
-            }
-            if (preventDefault) {
-                event.preventDefault();
-            }
-            handleBackgroundClick(event);
-        } },
-        React.createElement(ModalContent, { size: size, show: show }, children)), portalRoot);
+        }, show: show, onClick: handleBackgroundClick },
+        React.createElement(FocusTrap, { focusTrapOptions: { allowOutsideClick: true } },
+            React.createElement(ModalContent, { size: size, show: show, id: "modal-content" }, children))), portalRoot);
 };
 export var Modal = forwardRef(CompModal);
