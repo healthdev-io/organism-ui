@@ -26,7 +26,7 @@ import { createPortal } from "react-dom";
 import { styled } from "@stitches/react";
 import { ModalSizeOptions } from "../../../core/types/modalSizeOptions";
 import { theme } from "../../../config/stiches.config";
-import { createFocusTrap } from "focus-trap";
+import FocusTrap from "focus-trap-react";
 
 const ModalBackground = styled("div", {
   position: "fixed",
@@ -108,11 +108,22 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
   const [show, setShow] = useState(false);
 
   const handleOpen = () => setVisible(true);
-  const handleClose = () => setVisible(false);
+  const handleClose = () => {
+    onClose && onClose();
+    setShow(false);
+    setTimeout(() => {
+      setVisible(false);
+    }, 100);
+  };
 
   const handleBackgroundClick = (e: React.MouseEvent) => {
+    if (stopPropagation) {
+      e.stopPropagation();
+    }
+    if (preventDefault) {
+      e.preventDefault();
+    }
     if (e.target === e.currentTarget && closeOnOverlayClick) {
-      onClose();
       handleClose();
     }
   };
@@ -136,30 +147,22 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
   useEffect(() => {
     if (visible) {
       document.body.style.overflow = "hidden";
-      setTimeout(() => setShow(true), 10);
+      setShow(true);
     } else {
       document.body.style.overflow = "";
-      setShow(false);
-      const timer = setTimeout(() => setVisible(false), 100);
-      return () => clearTimeout(timer);
     }
   }, [visible]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (visible) {
+        if (visible && closeOnEsc) {
           handleClose();
-          onClose();
         }
       }
     };
-    const focusTrapInstance = createFocusTrap(
-      document.getElementById("modal-content")!
-    );
 
     if (visible) {
-      focusTrapInstance.activate();
       document.addEventListener("keydown", handleKeyDown);
     } else {
       document.removeEventListener("keydown", handleKeyDown);
@@ -167,12 +170,15 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      focusTrapInstance.deactivate();
     };
   }, [open, onClose, closeOnEsc, visible]);
 
   useEffect(() => {
-    setVisible(open!);
+    if (open) {
+      setVisible(true);
+    } else {
+      handleClose();
+    }
   }, [open]);
 
   if (!portalRoot || !visible) {
@@ -186,19 +192,13 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
         $$overlayBlur: overlayBlur,
       }}
       show={show}
-      onClick={(event) => {
-        if (stopPropagation) {
-          event.stopPropagation();
-        }
-        if (preventDefault) {
-          event.preventDefault();
-        }
-        handleBackgroundClick(event);
-      }}
+      onClick={handleBackgroundClick}
     >
-      <ModalContent size={size} show={show} id="modal-content">
-        {children}
-      </ModalContent>
+      <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
+        <ModalContent size={size} show={show} id="modal-content">
+          {children}
+        </ModalContent>
+      </FocusTrap>
     </ModalBackground>,
     portalRoot
   );
