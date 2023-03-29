@@ -15,6 +15,8 @@ export { ModalTitle } from "./components/typography/ModalTitle";
 
 export { Avatar, AvatarProps } from "./components/custom/Avatar";
 
+export { Input, InputProps } from "./components/form/Input";
+
 /**
  * Extra types
  */
