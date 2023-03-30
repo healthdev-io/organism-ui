@@ -1,6 +1,6 @@
 export interface ModalProps {
   open?: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   size?: ModalSizeOptions;
   overlayColor?: string;
   overlayBlur?: string;
