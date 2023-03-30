@@ -2,7 +2,6 @@ import React, { forwardRef, useEffect, useImperativeHandle, useState, } from "re
 import { createPortal } from "react-dom";
 import { styled } from "@stitches/react";
 import { theme } from "../../../config/stiches.config";
-import FocusTrap from "focus-trap-react";
 var ModalBackground = styled("div", {
     position: "fixed",
     top: 0,
@@ -139,7 +138,6 @@ var CompModal = function (_a, ref) {
             $$overlayColor: overlayColor,
             $$overlayBlur: overlayBlur,
         }, show: show, onClick: handleBackgroundClick },
-        React.createElement(FocusTrap, { focusTrapOptions: { allowOutsideClick: true } },
-            React.createElement(ModalContent, { size: size, show: show, id: "modal-content" }, children))), portalRoot);
+        React.createElement(ModalContent, { size: size, show: show, id: "modal-content" }, children)), portalRoot);
 };
 export var Modal = forwardRef(CompModal);
