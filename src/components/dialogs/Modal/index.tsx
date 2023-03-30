@@ -194,11 +194,11 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
       show={show}
       onClick={handleBackgroundClick}
     >
-      <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
-        <ModalContent size={size} show={show} id="modal-content">
-          {children}
-        </ModalContent>
-      </FocusTrap>
+      {/* <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}> */}
+      <ModalContent size={size} show={show} id="modal-content">
+        {children}
+      </ModalContent>
+      {/* </FocusTrap> */}
     </ModalBackground>,
     portalRoot
   );
