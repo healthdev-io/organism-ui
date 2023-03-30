@@ -7,6 +7,7 @@ export { HorizontalDivider } from "./components/dividers/HorizontalDivider";
 export { ButtonText } from "./components/typography/ButtonText";
 export { ModalTitle } from "./components/typography/ModalTitle";
 export { Avatar, AvatarProps } from "./components/custom/Avatar";
+export { Input, InputProps } from "./components/form/Input";
 /**
  * Extra types
  */
