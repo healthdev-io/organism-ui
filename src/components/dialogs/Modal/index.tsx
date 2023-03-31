@@ -110,14 +110,14 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
 
   const handleOpen = () => setVisible(true);
   const handleClose = useCallback(() => {
-    if (onClose) {
+    if (onClose && open !== undefined) {
       onClose();
     }
     setShow(false);
     setTimeout(() => {
       setVisible(false);
     }, 100);
-  }, [onClose]);
+  }, [onClose, open]);
 
   const handleBackgroundClick = (e: React.MouseEvent) => {
     if (stopPropagation) {
