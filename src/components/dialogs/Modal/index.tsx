@@ -18,6 +18,7 @@ export interface ModalHandles {
 }
 import React, {
   forwardRef,
+  useCallback,
   useEffect,
   useImperativeHandle,
   useState,
@@ -108,13 +109,15 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
   const [show, setShow] = useState(false);
 
   const handleOpen = () => setVisible(true);
-  const handleClose = () => {
-    onClose && onClose();
+  const handleClose = useCallback(() => {
+    if (onClose) {
+      onClose();
+    }
     setShow(false);
     setTimeout(() => {
       setVisible(false);
     }, 100);
-  };
+  }, [onClose]);
 
   const handleBackgroundClick = (e: React.MouseEvent) => {
     if (stopPropagation) {
@@ -179,7 +182,7 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
     } else {
       handleClose();
     }
-  }, [open]);
+  }, [open, handleClose]);
 
   if (!portalRoot || !visible) {
     return null;
@@ -194,11 +197,11 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
       show={show}
       onClick={handleBackgroundClick}
     >
-      {/* <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}> */}
-      <ModalContent size={size} show={show} id="modal-content">
-        {children}
-      </ModalContent>
-      {/* </FocusTrap> */}
+      <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
+        <ModalContent size={size} show={show} id="modal-content">
+          {children}
+        </ModalContent>
+      </FocusTrap>
     </ModalBackground>,
     portalRoot
   );
