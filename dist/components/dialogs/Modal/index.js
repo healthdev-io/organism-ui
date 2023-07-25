@@ -1,7 +1,8 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useState, } from "react";
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useState, } from "react";
 import { createPortal } from "react-dom";
 import { styled } from "@stitches/react";
 import { theme } from "../../../config/stiches.config";
+import FocusTrap from "focus-trap-react";
 var ModalBackground = styled("div", {
     position: "fixed",
     top: 0,
@@ -65,13 +66,15 @@ var CompModal = function (_a, ref) {
     var _j = useState(false), visible = _j[0], setVisible = _j[1];
     var _k = useState(false), show = _k[0], setShow = _k[1];
     var handleOpen = function () { return setVisible(true); };
-    var handleClose = function () {
-        onClose && onClose();
+    var handleClose = useCallback(function () {
+        if (onClose && open !== undefined) {
+            onClose();
+        }
         setShow(false);
         setTimeout(function () {
             setVisible(false);
         }, 100);
-    };
+    }, [onClose, open]);
     var handleBackgroundClick = function (e) {
         if (stopPropagation) {
             e.stopPropagation();
@@ -130,7 +133,7 @@ var CompModal = function (_a, ref) {
         else {
             handleClose();
         }
-    }, [open]);
+    }, [open, handleClose]);
     if (!portalRoot || !visible) {
         return null;
     }
@@ -138,6 +141,7 @@ var CompModal = function (_a, ref) {
             $$overlayColor: overlayColor,
             $$overlayBlur: overlayBlur,
         }, show: show, onClick: handleBackgroundClick },
-        React.createElement(ModalContent, { size: size, show: show, id: "modal-content" }, children)), portalRoot);
+        React.createElement(FocusTrap, { focusTrapOptions: { allowOutsideClick: true } },
+            React.createElement(ModalContent, { size: size, show: show, id: "modal-content" }, children))), portalRoot);
 };
 export var Modal = forwardRef(CompModal);

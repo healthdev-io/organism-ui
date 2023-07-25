@@ -4,10 +4,10 @@ export var styled = (_a = createStitches({
     theme: {
         colors: {
             primary100: "#1B1292",
-            primary600: "#01A7CC",
-            primary700: "#0E99B8",
-            primary800: "#0D88A7",
-            primary600WithLoading: "#01A7CCcc",
+            primary600: "#1577E0",
+            primary700: "#0466D0",
+            primary800: "#0355C0",
+            primary600WithLoading: "#1577E0cc",
             secondary600: "#8257e5",
             secondary700: "#7146d4",
             secondary800: "#6035c3",

@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from "react";
 import { SizeOptions } from "../../../core/types/sizeOptions";
 import { CSS } from "@stitches/react";
 type ButtonRaw = JSX.IntrinsicElements["button"] & {
@@ -16,5 +16,5 @@ interface PropsLike {
     wFull?: boolean;
 }
 export type ButtonProps = PropsLike & ButtonRaw;
-export declare function Button({ size, loadingText, wFull, ...props }: ButtonProps): JSX.Element;
+export declare function Button({ size, loadingText, wFull, ...props }: ButtonProps): React.JSX.Element;
 export {};
