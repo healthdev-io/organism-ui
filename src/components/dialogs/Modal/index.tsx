@@ -129,6 +129,10 @@ const CompModal: React.ForwardRefRenderFunction<ModalHandles, ModalProps> = (
     if (e.target === e.currentTarget && closeOnOverlayClick) {
       handleClose();
     }
+
+    if(onClose) {
+      onClose();
+    }
   };
 
   useImperativeHandle(ref, () => ({
